@@ -1,37 +1,37 @@
-context:
-  version: 0.11.3
-  python_min: "3.9"
+{% set name = "rich-toolkit" %}
+{% set version = "0.14.8" %}
 
 package:
-  name: rich-toolkit
-  version: ${{ version }}
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/r/rich-toolkit/rich_toolkit-${{ version }}.tar.gz
-  sha256: 042cee58083e0bcbb56a69514b56a5def853ad064f977b6b95519087e4d9f239
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/rich_toolkit-{{ version }}.tar.gz
+  sha256: 1f77b32e6c25d9e3644c1efbce00d8d90daf2457b3abdb4699e263c03b9ca6cf
 
 build:
-  number: 0
   noarch: python
-  script: python -m pip install . -vv --no-deps --no-build-isolation
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
 
 requirements:
   host:
-    - python
+    - python >=3.8
     - hatchling
     - pip
   run:
-    - python
-    - rich
-    - click 
-    - typing_extensions
+    - python >=3.8
+    - rich >=13.7.1
+    - click >=8.1.7
+    - typing-extensions >=4.12.2
 
-tests:
-  - python:
-      imports:
-        - rich_toolkit
-      pip_check: true
-      python_version: 
+test:
+  imports:
+    - rich_toolkit
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   homepage: https://github.com/patrick91/rich-toolkit
