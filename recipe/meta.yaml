@@ -1,0 +1,50 @@
+{% set name = "rich-toolkit" %}
+{% set version = "0.14.8" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/rich_toolkit-{{ version }}.tar.gz
+  sha256: 1f77b32e6c25d9e3644c1efbce00d8d90daf2457b3abdb4699e263c03b9ca6cf
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.8
+    - hatchling
+    - pip
+  run:
+    - python >=3.8
+    - rich >=13.7.1
+    - click >=8.1.7
+    - typing-extensions >=4.12.2
+
+test:
+  imports:
+    - rich_toolkit
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  homepage: https://github.com/patrick91/rich-toolkit
+  summary: Rich toolkit for building command-line applications
+  license: MIT
+  license_file: LICENSE
+  repository: https://github.com/patrick91/rich-toolkit
+
+extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/70829
+    reason: Dependency for chromadb
+  recipe-maintainers:
+    - ianaobi
+  recipe-maintainers:
+    - synapticarbors
