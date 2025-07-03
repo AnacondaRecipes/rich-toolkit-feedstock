@@ -13,25 +13,25 @@ source:
 build:
   number: 0
   noarch: python
-  script: python -m pip install . -vv
+  script: python -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - python ${{ python_min }}
+    - python
     - hatchling
     - pip
   run:
-    - python >=${{ python_min }}
-    - rich >=13.7.1
-    - click >=8.1.7
-    - typing_extensions >=4.12.2
+    - python
+    - rich
+    - click 
+    - typing_extensions
 
 tests:
   - python:
       imports:
         - rich_toolkit
       pip_check: true
-      python_version: ${{ python_min }}
+      python_version: 
 
 about:
   homepage: https://github.com/patrick91/rich-toolkit
@@ -41,5 +41,10 @@ about:
   repository: https://github.com/patrick91/rich-toolkit
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/70829
+    reason: Dependency for chromadb
+  recipe-maintainers:
+    - ianaobi
   recipe-maintainers:
     - synapticarbors
