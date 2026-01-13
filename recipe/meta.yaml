@@ -1,0 +1,56 @@
+{% set name = "rich-toolkit" %}
+{% set version = "0.17.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace("-", "_") }}-{{ version }}.tar.gz
+  sha256: 5af54df8d1dd9c8530e462e1bdcaed625c9b49f5a55b035aa0ba1c17bdb87c9a
+
+build:
+  number: 0
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation -vv .
+
+requirements:
+  host:
+    - python
+    - hatchling
+    - pip
+  run:
+    - python
+    - rich >=13.7.1
+    - click >=8.1.7
+    - typing_extensions >=4.12.2
+
+test:
+  imports:
+    - rich_toolkit
+  source_files:
+    - tests
+  requires:
+    - pip
+    - pytest >=8.3.2
+    - inline-snapshot >=0.12.1
+    - pydantic >=2.10.6
+  commands:
+    - pip check
+    # skip input validator test because it requires pydantic 1 and 2 at the same time.
+    # Re-check it when pydantic 1 is dropped.
+    - pytest -v tests --ignore=tests/test_input_validator.py
+
+about:
+  homepage: https://github.com/patrick91/rich-toolkit
+  summary: Opinionated components for Rich
+  description: This is a very opinionated set of components for building CLI applications. It is based on Rich
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  dev_url: https://github.com/patrick91/rich-toolkit
+  doc_url: https://github.com/patrick91/rich-toolkit
+
+extra:
+  recipe-maintainers:
+    - synapticarbors
