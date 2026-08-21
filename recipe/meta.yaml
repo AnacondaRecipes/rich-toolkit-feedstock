@@ -1,5 +1,5 @@
 {% set name = "rich-toolkit" %}
-{% set version = "0.17.1" %}
+{% set version = "0.20.3" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace("-", "_") }}-{{ version }}.tar.gz
-  sha256: 5af54df8d1dd9c8530e462e1bdcaed625c9b49f5a55b035aa0ba1c17bdb87c9a
+  sha256: 223dd2cfba325ed55e94933b9e53f3aca13e9fdf76622bd564c18109a2273c1b
 
 build:
   number: 0
@@ -42,7 +42,7 @@ test:
     - pytest -v tests --ignore=tests/test_input_validator.py
 
 about:
-  homepage: https://github.com/patrick91/rich-toolkit
+  home: https://github.com/patrick91/rich-toolkit
   summary: Opinionated components for Rich
   description: This is a very opinionated set of components for building CLI applications. It is based on Rich
   license: MIT
